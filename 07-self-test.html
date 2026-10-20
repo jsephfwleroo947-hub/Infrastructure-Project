@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7. Self-test | Networking Fundamentals</title>
+<meta name="description" content="Ten questions with model answers">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Networking Fundamentals</a>
+  <a class="gh" href="https://github.com/jsephfwleroo947-hub/networking-fundamentals">View on GitHub</a>
+</header>
+<details class="mobile-nav"><summary>Sections</summary><ul><li><a href="01-about-this-project.html">1. About this project</a></li><li><a href="02-lan-vs-wan.html">2. LAN vs WAN</a></li><li><a href="03-vlans-vs-subnets.html">3. VLANs vs subnets</a></li><li><a href="04-subnetting.html">4. Subnetting</a></li><li><a href="05-firewalls.html">5. Firewalls</a></li><li><a href="06-troubleshooting-case-studies.html">6. Troubleshooting case studies</a></li><li><a class="current" href="07-self-test.html">7. Self-test</a></li><li><a href="08-reflection.html">8. Reflection</a></li><li><a href="09-references.html">9. References</a></li></ul></details>
+<div class="layout">
+  <nav class="sidebar" aria-label="Sections">
+    <p class="nav-title">Sections</p>
+    <ul><li><a href="01-about-this-project.html">1. About this project</a></li><li><a href="02-lan-vs-wan.html">2. LAN vs WAN</a></li><li><a href="03-vlans-vs-subnets.html">3. VLANs vs subnets</a></li><li><a href="04-subnetting.html">4. Subnetting</a></li><li><a href="05-firewalls.html">5. Firewalls</a></li><li><a href="06-troubleshooting-case-studies.html">6. Troubleshooting case studies</a></li><li><a class="current" href="07-self-test.html">7. Self-test</a></li><li><a href="08-reflection.html">8. Reflection</a></li><li><a href="09-references.html">9. References</a></li></ul>
+  </nav>
+  <main class="content">
+<h1 id="self-test">7. Self-test</h1>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 44%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>#</strong></th>
+<th><strong>Question</strong></th>
+<th><strong>Model answer</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>What is the difference between a VLAN and a subnet?</td>
+<td>A VLAN works at Layer 2 and splits a switch into separate broadcast domains. A subnet works at Layer 3 and splits an IP address range into separate networks. They solve different problems, but each VLAN normally carries exactly one subnet so the two boundaries line up.</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>What is the difference between an access port and a trunk port?</td>
+<td>An access port belongs to one VLAN and connects an end device, with frames untagged. A trunk port connects switches, routers or firewalls and carries several VLANs over one link, with each frame tagged using 802.1Q.</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>How many usable host addresses are in a /27?</td>
+<td>A /27 has 5 host bits, so 2^5 - 2 = 30 usable addresses. Two are subtracted because the all-zeros address is the network address and the all-ones address is the broadcast address.</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Find the network address, broadcast address and usable range for 192.168.10.100/26.</td>
+<td>The block size is 256 - 192 = 64, so subnets start at .0, .64, .128 and .192. The address .100 falls in the .64 subnet. Network: 192.168.10.64. Broadcast: 192.168.10.127. Usable range: 192.168.10.65 to 192.168.10.126.</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Are 192.168.5.200 and 192.168.5.230 on the same subnet if the mask is 255.255.255.224?</td>
+<td>No. The block size is 256 - 224 = 32. The address .200 is in the subnet starting at .192 (range .192 to .223) and .230 is in the subnet starting at .224 (range .224 to .255). They are on different subnets, so traffic between them must go through a router.</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>What is the smallest subnet mask that can hold 60 hosts?</td>
+<td>5 host bits give only 30 usable addresses, which is too few, and 6 host bits give 62, which is enough. That means a /26 (255.255.255.192).</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Two PCs are plugged into the same switch but are in different VLANs. Can they ping each other? Why or why not?</td>
+<td>Not directly. They are in separate broadcast domains, so a Layer 2 switch will not pass traffic between them. They can only communicate if a Layer 3 device (a router or Layer 3 switch) routes between the two VLANs.</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Why does a stateful firewall need fewer rules than a stateless one for the same job?</td>
+<td>A stateful firewall records connections in a state table, so replies to a connection started from the inside are allowed automatically. A stateless firewall treats every packet independently, so it needs a separate rule to allow return traffic, which usually means leaving wide port ranges open.</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>A firewall has a rule denying the DMZ access to the internal network, placed above a rule allowing the web server to reach the database on TCP 5432. What happens, and what is the fix?</td>
+<td>The firewall uses first-match processing, so database traffic matches the broad deny first and the allow rule below it is never reached (a shadowed rule). The website works, but any page needing data fails. The fix is to move the specific allow above the broad deny.</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Why are public-facing servers placed in a DMZ rather than on the internal network?</td>
+<td>They are the most exposed systems and the most likely to be compromised. In a separate segment, firewall rules can limit what they reach inwards (for example, one database port), so an attacker who takes over a DMZ server cannot scan or move into the internal networks.</td>
+</tr>
+</tbody>
+</table></div>
+
+    <div class="pager"><a class="prev" href="06-troubleshooting-case-studies.html"><span>Previous</span>6. Troubleshooting case studies</a><a class="next" href="08-reflection.html"><span>Next</span>8. Reflection</a></div>
+  </main>
+</div>
+<footer class="footer">Joseph &middot; Version 0.1 &middot; 16/10/2026 &middot; All IP addresses and organisations in examples are fictional.</footer>
+</body>
+</html>
