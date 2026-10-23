@@ -2,7 +2,6 @@
 
 LAN, WAN, VLANs, subnetting and firewalls: a knowledge portfolio.
 
-**Read it as a website:** https://jsephfwleroo947-hub.github.io/networking-fundamentals/
 
 This project explains how core networking building blocks work and how they fit together, and shows the understanding through explanation, worked subnetting problems, firewall rule design and fault diagnosis, with diagrams drawn for the project.
 
